@@ -1,0 +1,198 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Star Wars Theme Variables */
+
+  /* Colors */
+  --color-sw-yellow: #ffd700;
+  --color-sw-red: #ff1744;
+  --color-sw-blue: #4fc3f7;
+  --color-sw-green: #ffd700;
+  --color-sw-dark: #000000;
+  --color-sw-space: #0a0a0a;
+  --color-sw-gray: #1a1a2e;
+  --color-sw-purple: #311b92;
+
+  /* Fonts */
+  --font-sw-primary: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+
+  /* Spacing */
+  --spacing-game-gap: 8px;
+
+  /* Border Radius */
+  --radius-game: 12px;
+  --radius-cell: 8px;
+
+  /* Effects */
+  --shadow-lightsaber: 0 0 20px currentColor, 0 0 40px currentColor;
+  --backdrop-game: blur(10px);
+}
+
+/**
+ * Star Wars Tic Tac Toe - Global Styles
+ */
+
+:root {
+  --sw-yellow: #ffd700;
+  --sw-red: #ff1744;
+  --sw-blue: #4fc3f7;
+  --sw-green: #ffd700;
+  --sw-dark: #000000;
+  --sw-space: #0a0a0a;
+  --sw-purple: #311b92;
+}
+
+html {
+  font-family: var(--font-sw-primary);
+}
+
+body {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #311b92 100%);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Star Wars opening crawl effect for backgrounds */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: transparent;
+  z-index: -1;
+}
+
+.stars::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  box-shadow: 100px 100px white, 200px 150px white, 300px 250px white,
+    400px 350px white, 500px 200px white, 600px 400px white, 700px 300px white,
+    800px 450px white, 900px 350px white, 150px 400px white, 250px 300px white,
+    350px 450px white, 450px 100px white, 550px 350px white, 650px 250px white,
+    750px 150px white, 850px 400px white, 950px 200px white;
+  animation: stars 100s linear infinite;
+}
+
+@keyframes stars {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100vh);
+  }
+}
+
+/* Lightsaber glow effect */
+.lightsaber-glow {
+  filter: drop-shadow(0 0 20px currentColor) drop-shadow(0 0 40px currentColor);
+}
+
+/* Force animation */
+@keyframes force-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.force-pulse {
+  animation: force-pulse 2s ease-in-out infinite;
+}
+
+/* Game specific styles */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-game-gap);
+  padding: var(--spacing-game-gap);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-game);
+  backdrop-filter: var(--backdrop-game);
+}
+
+.game-cell {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--color-sw-blue);
+  border-radius: var(--radius-cell);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.game-cell:hover:not(.occupied) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--color-sw-yellow);
+  transform: scale(1.05);
+}
+
+.game-cell.occupied {
+  cursor: not-allowed;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    box-shadow: 0 0 10px #ffd700, inset 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700, inset 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 10px #ffd700, inset 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Player styles */
+.player-x {
+  color: var(--color-sw-blue);
+  text-shadow: var(--shadow-lightsaber);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.player-o {
+  color: var(--color-sw-red);
+  text-shadow: var(--shadow-lightsaber);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Winning cells animation */
+.winning-cell {
+  animation: sparkle 1.5s ease-in-out infinite !important;
+  background: rgba(255, 215, 0, 0.2) !important;
+  border-color: #ffd700 !important;
+}

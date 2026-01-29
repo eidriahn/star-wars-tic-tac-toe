@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@star-wars-tictactoe/auth": ["libs/auth/src/index.ts"],
+      "@star-wars-tictactoe/data-access": ["libs/data-access/src/index.ts"],
+      "@star-wars-tictactoe/game-engine": ["libs/game-engine/src/index.ts"],
+      "@star-wars-tictactoe/graphql-client": [
+        "libs/graphql-client/src/index.ts"
+      ],
+      "@star-wars-tictactoe/ui-components": ["libs/ui-components/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
