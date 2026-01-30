@@ -6,10 +6,6 @@ Welcome to the Star Wars TicTacToe Technical Challenge! This project contains a 
 
 The application contains **10 intentionally placed bugs** that need to be identified, documented, and fixed. These bugs test your understanding of the Qwik framework, its unique features, and common pitfalls in modern web development.
 
-## Time Limit
-
-You have **72 hours** to complete this challenge from the moment you receive it.
-
 ## Requirements
 
 ### Your Mission:
