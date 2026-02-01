@@ -1,4 +1,4 @@
-import { component$, useSignal, $ } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import {
   routeAction$,
   Form,
@@ -106,7 +106,7 @@ export default component$(() => {
             {/* Submit Button */}
             <button
               type="submit"
-              class="w-full py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold rounded-lg transition-all duration-200 transform hover:scale-105"
+              class="w-full py-3 bg-linear-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold rounded-lg transition-all duration-200 transform hover:scale-105"
             >
               {action.isRunning ? 'Logging in...' : 'Enter the Galaxy'}
             </button>

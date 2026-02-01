@@ -75,7 +75,7 @@ export default component$(() => {
     isProcessing.value = true;
 
     // Add slight delay for better UX
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const aiMove = AIPlayer.getBestMove(
       newState.board,
@@ -117,9 +117,9 @@ export default component$(() => {
   useTask$(({ track }) => {
     track(() => gameState.board);
     const board = gameState.board;
-    winningCells.value = GameEngine.getWinningCells(board.value || board);
+    winningCells.value = GameEngine.getWinningCells(board);
   });
-  console.log('Game State=>', gameState);
+
   return (
     <div class="min-h-screen p-4">
       <div class="stars"></div>
@@ -197,7 +197,7 @@ export default component$(() => {
               </a>
             </div>
             <a
-              href="/login"
+              href="/logout"
               class="block py-3 bg-gray-600 hover:bg-gray-700 text-white font-bold rounded-lg transition-colors text-center"
             >
               Logout

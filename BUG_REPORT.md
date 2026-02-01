@@ -119,14 +119,31 @@
 
 ## Bug title
 
-- When trying to logout, the user is redirected to choose the difficulty instead
+- User cannot logout
 
 ## Description
 
+- When trying to logout, both during a game and during difficulty selection, the user is simply redirected to the login page.
+
 ## Steps to reproduce
+
+- Click on `Back to Login` or `Logout` during the game.
 
 ## Root cause analysis
 
+- Both logout buttons are <a> tags that have `/login` as their path, when the user is redirected, the loader that is set on that page checks whether the user is already logged in and if true redirects the user to the `/game-setup/` page.
+
 ## Solution implemented
 
+- Two possible solutions are.
+  - Change the loader of the `/login` page to logout users that are already authenticated.
+  - Create a new path `/logout` that will logout the users and then redirect them.
+
+I prefer the second approach because having an explicit `/logout` path is more robust, plus in the future its functionality can be extended, for example by adding a 'returnTo' parameter to specify the path we want to return to once logged out, for now the user will be redirected to the login page because of `routes/index.tsx`
+
 ## File(s) modified
+
+- apps/star-wars-tictactoe/src/routes/game/index.tsx
+- apps/star-wars-tictactoe/src/routes/game-setup/index.tsx
+- apps/star-wars-tictactoe/src/routes/login/index.tsx
+- apps/star-wars-tictactoe/src/routes/logout/index.tsx

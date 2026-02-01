@@ -1,5 +1,9 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
-import { routeLoader$, useNavigate, type DocumentHead } from '@builder.io/qwik-city';
+import {
+  routeLoader$,
+  useNavigate,
+  type DocumentHead,
+} from '@builder.io/qwik-city';
 import { AuthService } from '@star-wars-tictactoe/auth';
 
 export const useCurrentUser = routeLoader$(async ({ cookie, redirect }) => {
@@ -29,12 +33,8 @@ export default component$(() => {
       <div class="max-w-md w-full">
         {/* Header */}
         <header class="text-center mb-8">
-          <h1 class="text-5xl font-bold text-yellow-400 mb-2">
-            STAR WARS
-          </h1>
-          <h2 class="text-2xl text-white mb-4">
-            Tic Tac Toe
-          </h2>
+          <h1 class="text-5xl font-bold text-yellow-400 mb-2">STAR WARS</h1>
+          <h2 class="text-2xl text-white mb-4">Tic Tac Toe</h2>
         </header>
 
         {/* Setup Card */}
@@ -42,11 +42,10 @@ export default component$(() => {
           {/* Welcome Message */}
           <div class="text-center mb-8">
             <p class="text-xl text-white mb-2">
-              Welcome, <span class="text-yellow-400 font-bold">{user.value.name}</span>
+              Welcome,{' '}
+              <span class="text-yellow-400 font-bold">{user.value.name}</span>
             </p>
-            <p class="text-gray-300">
-              Prepare to face the Dark Side
-            </p>
+            <p class="text-gray-300">Prepare to face the Dark Side</p>
           </div>
 
           {/* Opponent Preview */}
@@ -86,9 +85,7 @@ export default component$(() => {
                     {level === 'medium' && 'Knight'}
                     {level === 'hard' && 'Master'}
                   </div>
-                  <div class="text-base">
-                    {level.toUpperCase()}
-                  </div>
+                  <div class="text-base">{level.toUpperCase()}</div>
                   {selectedDifficulty.value === level && (
                     <div class="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center">
                       <span class="text-black text-xs">✓</span>
@@ -98,9 +95,12 @@ export default component$(() => {
               ))}
             </div>
             <p class="text-center text-sm text-gray-400 mt-3">
-              {selectedDifficulty.value === 'easy' && 'The AI will make random moves'}
-              {selectedDifficulty.value === 'medium' && 'The AI will play strategically'}
-              {selectedDifficulty.value === 'hard' && 'The AI is nearly unbeatable'}
+              {selectedDifficulty.value === 'easy' &&
+                'The AI will make random moves'}
+              {selectedDifficulty.value === 'medium' &&
+                'The AI will play strategically'}
+              {selectedDifficulty.value === 'hard' &&
+                'The AI is nearly unbeatable'}
             </p>
           </div>
 
@@ -112,14 +112,14 @@ export default component$(() => {
               class={`py-4 font-bold rounded-lg transition-all transform hover:scale-105 text-lg ${
                 isStarting.value
                   ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-black hover:from-yellow-400 hover:to-yellow-500 shadow-lg shadow-yellow-500/30'
+                  : 'bg-linear-to-r from-yellow-500 to-yellow-600 text-black hover:from-yellow-400 hover:to-yellow-500 shadow-lg shadow-yellow-500/30'
               }`}
             >
               {isStarting.value ? 'Starting...' : 'Start Game'}
             </button>
 
             <a
-              href="/login"
+              href="/logout"
               class="py-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-lg transition-all text-center"
             >
               Back to Login
