@@ -147,3 +147,29 @@ I prefer the second approach because having an explicit `/logout` path is more r
 - apps/star-wars-tictactoe/src/routes/game-setup/index.tsx
 - apps/star-wars-tictactoe/src/routes/login/index.tsx
 - apps/star-wars-tictactoe/src/routes/logout/index.tsx
+
+## 7
+
+## Bug title
+
+- Ai Player card invisible on mobile
+
+## Description
+
+- When the website is viewed from mobile, the ai player card is at the bottom of the screen, the user is forced to scroll to view it, making the UX sub optimal.
+
+## Steps to reproduce
+
+View the app on mobile or with a restricted viewport in the browser.
+
+## Root cause analysis
+
+- The cause is the way the component are layed out in the grid at this apps/star-wars-tictactoe/src/routes/game/index.tsx component.
+
+## Solution implemented
+
+- Made some modification to how the grid is layed down so that the ai player card is among the top cards
+
+## File(s) modified
+
+- apps/star-wars-tictactoe/src/routes/game/index.tsx

@@ -134,39 +134,50 @@ export default component$(() => {
         {/* Game Layout */}
         <div class="grid lg:grid-cols-3 gap-6 items-start">
           {/* Left Player */}
-          <div class="space-y-4">
-            <PlayerCard
-              player={playerX.value}
-              score={gameState.scores.X}
-              isCurrentTurn={
-                gameState.currentPlayer === 'X' && !gameState.isGameOver
-              }
-              side="left"
-            />
 
-            {/* Difficulty Display */}
-            <div class="bg-black/50 backdrop-blur-md rounded-xl p-4 border-2 border-yellow-500/30">
-              <h3 class="text-sm font-bold text-yellow-400 mb-1">
-                AI Difficulty
-              </h3>
-              <div class="text-lg font-bold text-white uppercase">
-                {difficulty}
-              </div>
-              <p class="text-xs text-gray-400 mt-1">
-                {difficulty === 'easy' && 'Random moves'}
-                {difficulty === 'medium' && 'Strategic play'}
-                {difficulty === 'hard' && 'Nearly unbeatable'}
-              </p>
+          <PlayerCard
+            player={playerX.value}
+            score={gameState.scores.X}
+            isCurrentTurn={
+              gameState.currentPlayer === 'X' && !gameState.isGameOver
+            }
+            side="left"
+          />
+
+          {/* Game Status */}
+          <GameStatus
+            board={gameState.board}
+            currentPlayer={gameState.currentPlayer}
+          />
+          {/* Right Player (AI) */}
+          <div>
+            <PlayerCard
+              player={playerO.value}
+              score={gameState.scores.O}
+              isCurrentTurn={
+                gameState.currentPlayer === 'O' && !gameState.isGameOver
+              }
+              side="right"
+            />
+          </div>
+
+          {/* Difficulty Display */}
+          <div class="bg-black/50 backdrop-blur-md rounded-xl p-4 border-2 border-yellow-500/30">
+            <h3 class="text-sm font-bold text-yellow-400 mb-1">
+              AI Difficulty
+            </h3>
+            <div class="text-lg font-bold text-white uppercase">
+              {difficulty}
             </div>
+            <p class="text-xs text-gray-400 mt-1">
+              {difficulty === 'easy' && 'Random moves'}
+              {difficulty === 'medium' && 'Strategic play'}
+              {difficulty === 'hard' && 'Nearly unbeatable'}
+            </p>
           </div>
 
           {/* Game Board */}
           <div class="space-y-4">
-            <GameStatus
-              board={gameState.board}
-              currentPlayer={gameState.currentPlayer}
-            />
-
             <GameBoard
               board={gameState.board}
               onCellClick$={makeMove}
@@ -202,18 +213,6 @@ export default component$(() => {
             >
               Logout
             </a>
-          </div>
-
-          {/* Right Player (AI) */}
-          <div>
-            <PlayerCard
-              player={playerO.value}
-              score={gameState.scores.O}
-              isCurrentTurn={
-                gameState.currentPlayer === 'O' && !gameState.isGameOver
-              }
-              side="right"
-            />
           </div>
         </div>
       </div>
