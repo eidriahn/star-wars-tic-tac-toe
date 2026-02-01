@@ -13,3 +13,12 @@
 ```
 
 - The fix is to remove the `+3` from the code.
+
+### 2
+
+- When the opponent wins, the score stays the same.
+
+- The bug was caused by the make move function inside [this](apps/star-wars-tictactoe/src/routes/game/index.tsx) page route not checking whether the ai is the winner of the current move.
+  **Note** the function can be improved.
+
+- The fix was to add a check whether the `aiState` is the winner and if so, increase the score of the appropriate player.

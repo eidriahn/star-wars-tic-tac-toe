@@ -1,13 +1,24 @@
-import { component$, useSignal, useStore, useVisibleTask$, useTask$, $, noSerialize } from '@builder.io/qwik';
-import { routeLoader$, type DocumentHead, useLocation } from '@builder.io/qwik-city';
+import {
+  component$,
+  useSignal,
+  useStore,
+  useTask$,
+  $,
+  noSerialize,
+} from '@builder.io/qwik';
+import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import { AuthService } from '@star-wars-tictactoe/auth';
-import { GameEngine, AIPlayer, type PlayerInfo } from '@star-wars-tictactoe/game-engine';
+import {
+  GameEngine,
+  AIPlayer,
+  type PlayerInfo,
+} from '@star-wars-tictactoe/game-engine';
 import {
   GameBoard,
   PlayerCard,
   ScoreBoard,
   WinnerModal,
-  GameStatus
+  GameStatus,
 } from '@star-wars-tictactoe/ui-components';
 
 export const useGameData = routeLoader$(async ({ cookie, redirect, query }) => {
@@ -17,7 +28,10 @@ export const useGameData = routeLoader$(async ({ cookie, redirect, query }) => {
   }
 
   // Get difficulty from query params, default to medium if not provided
-  const difficulty = (query.get('difficulty') || 'medium') as 'easy' | 'medium' | 'hard';
+  const difficulty = (query.get('difficulty') || 'medium') as
+    | 'easy'
+    | 'medium'
+    | 'hard';
 
   return { user, difficulty };
 });
@@ -32,13 +46,16 @@ export default component$(() => {
     symbol: 'X',
     isAI: false,
   });
-  const playerO = useSignal<PlayerInfo>(noSerialize({
-    id: 'ai',
-    name: 'Darth AI',
-    avatar: 'https://ui-avatars.com/api/?name=Darth+AI&background=ff0000&color=fff',
-    symbol: 'O',
-    isAI: true,
-  }) as PlayerInfo);
+  const playerO = useSignal<PlayerInfo>(
+    noSerialize({
+      id: 'ai',
+      name: 'Darth AI',
+      avatar:
+        'https://ui-avatars.com/api/?name=Darth+AI&background=ff0000&color=fff',
+      symbol: 'O',
+      isAI: true,
+    }) as PlayerInfo
+  );
   const difficulty = gameData.value.difficulty;
   const isProcessing = useSignal(false);
 
@@ -65,7 +82,7 @@ export default component$(() => {
     isProcessing.value = true;
 
     // Add slight delay for better UX
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 0));
 
     const aiMove = AIPlayer.getBestMove(
       newState.board,
@@ -80,6 +97,10 @@ export default component$(() => {
         gameState.currentPlayer = aiState.currentPlayer;
         gameState.winner = aiState.winner;
         gameState.isGameOver = aiState.isGameOver;
+
+        if (aiState.winner) {
+          gameState.scores[aiState.winner] += 1;
+        }
       }
     }
 
@@ -111,12 +132,8 @@ export default component$(() => {
       <div class="max-w-6xl mx-auto">
         {/* Header */}
         <header class="text-center mb-8">
-          <h1 class="text-5xl font-bold text-yellow-400 mb-2">
-            STAR WARS
-          </h1>
-          <h2 class="text-2xl text-white">
-            Tic Tac Toe
-          </h2>
+          <h1 class="text-5xl font-bold text-yellow-400 mb-2">STAR WARS</h1>
+          <h2 class="text-2xl text-white">Tic Tac Toe</h2>
         </header>
 
         {/* Game Layout */}
@@ -126,14 +143,20 @@ export default component$(() => {
             <PlayerCard
               player={playerX.value}
               score={gameState.scores.X}
-              isCurrentTurn={gameState.currentPlayer === 'X' && !gameState.isGameOver}
+              isCurrentTurn={
+                gameState.currentPlayer === 'X' && !gameState.isGameOver
+              }
               side="left"
             />
 
             {/* Difficulty Display */}
             <div class="bg-black/50 backdrop-blur-md rounded-xl p-4 border-2 border-yellow-500/30">
-              <h3 class="text-sm font-bold text-yellow-400 mb-1">AI Difficulty</h3>
-              <div class="text-lg font-bold text-white uppercase">{difficulty}</div>
+              <h3 class="text-sm font-bold text-yellow-400 mb-1">
+                AI Difficulty
+              </h3>
+              <div class="text-lg font-bold text-white uppercase">
+                {difficulty}
+              </div>
               <p class="text-xs text-gray-400 mt-1">
                 {difficulty === 'easy' && 'Random moves'}
                 {difficulty === 'medium' && 'Strategic play'}
@@ -153,7 +176,11 @@ export default component$(() => {
               board={gameState.board}
               onCellClick$={makeMove}
               winningCells={winningCells.value}
-              disabled={isProcessing.value || gameState.isGameOver || gameState.currentPlayer === 'O'}
+              disabled={
+                isProcessing.value ||
+                gameState.isGameOver ||
+                gameState.currentPlayer === 'O'
+              }
               currentPlayer={gameState.currentPlayer}
             />
 
@@ -187,7 +214,9 @@ export default component$(() => {
             <PlayerCard
               player={playerO.value}
               score={gameState.scores.O}
-              isCurrentTurn={gameState.currentPlayer === 'O' && !gameState.isGameOver}
+              isCurrentTurn={
+                gameState.currentPlayer === 'O' && !gameState.isGameOver
+              }
               side="right"
             />
           </div>

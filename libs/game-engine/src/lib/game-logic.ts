@@ -1,4 +1,4 @@
-import { Board, Player, GameState, CellValue } from './types';
+import { Board, Player, GameState } from './types';
 
 // Winning combinations for tic-tac-toe
 const WINNING_COMBINATIONS = [
@@ -52,12 +52,13 @@ export class GameEngine {
 
     // Check for winner
     const winner = this.checkWinner(newBoard);
+    console.log(`🚀 => winner:`, winner);
     const isDraw = !winner && this.isBoardFull(newBoard);
     const isGameOver = !!winner || isDraw;
 
     // Update scores
     const newScores = { ...state.scores };
-    if (winner && winner !== 'draw') {
+    if (winner && winner !== null) {
       newScores[winner] = newScores[winner] + 1;
     } else if (isDraw) {
       newScores.draws = newScores.draws + 1;
