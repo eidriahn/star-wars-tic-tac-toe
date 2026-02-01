@@ -1,10 +1,18 @@
 ### 1
 
-## What
+## Bug title
+
+- Wrong cell being clicked when playing
+
+## Description
 
 - When clicking a square on the board, the wrong square is selected.
 
-## Why
+## Steps to reproduce
+
+- Click a square on the board
+
+## Root cause analysis
 
 - The bug was caused by the onClick event listener on the squares of the board passing the wrong parameter to the onCellClick function, specifically increasing the index by 3.
 
@@ -16,32 +24,61 @@
               }}
 ```
 
-## How to fix
+## Solution implemented
 
-- The fix is to remove the `+3` from the code.
+- Removed the rogue `+3` from the code
+
+## File(s) modified
+
+- libs/ui-components/src/lib/GameBoard.tsx
 
 ### 2
 
-## What
+## Bug title
 
-- When the opponent wins, the score stays the same.
+- Game not tracking opponent wins.
 
-## Why
+## Description
+
+- When the ai player winds, the score for them stays the same
+
+## Steps to reproduce
+
+- Let the ai win and watch the score remain 0
+
+## Root cause analysis
 
 - The bug was caused by the make move function inside [this](apps/star-wars-tictactoe/src/routes/game/index.tsx) page route not checking whether the ai is the winner of the current move.
-  **Note** the function can be improved.
 
-## How to fix
+## Solution implemented
 
-- The fix was to add a check whether the `aiState` is the winner and if so, increase the score of the appropriate player.
+- Added block of code that check whether ai is the winner and increases the score if so.
+
+```
+if (aiState.winner) {
+          gameState.scores[aiState.winner] += 1;
+        }
+```
+
+## File(s) modified
+
+- apps/star-wars-tictactoe/src/routes/game/index.tsx
 
 ### 3
 
-## What
+## Bug title
 
-- When there is a draw, the scores stay the same.
+- GameState not tracking games that are 'Draw'
 
-## Why
+## Description
+
+- When there is no winner, the score of the 'draw' possibility stays the same.
+
+## Steps to reproduce
+
+- Force a 'draw' and watch as the score remains 0.
+
+## Root cause analysis
 
 - The bug is caused by passing the wrong key to the parameter lookup when determining the scores of the `gameState`
 
@@ -53,17 +90,32 @@
 
 **_TypeScript note_** Property 'draw' does not exist on type '{ X: number; O: number; draws: number; }'. Did you mean 'draws'
 
-## How to fix
+## Solution implemented
 
 - This can be fixed in two ways, by changing the key of the gameScores object from `draws` to `draw` or by changing the possible `winner` keys to `Player | 'draws'`, or what I think is best, making a ternary and piping the correct string to the scores. I think this is best because the types appropriately describe the entities, `gameState.scores.draws` is semantically correct as is `winner` as 'draw'.
 
+## File(s) modified
+
+- /apps/star-wars-tictactoe/src/routes/game/index.tsx
+
 ### 4
 
-## What
+## Bug title
 
-- The difficulty of the game does not follow the one set at the beggining
+- Difficulty level incongruences
 
-## Why
+## Description
+
+- When selecting hard difficulty the game still plays like it's easy.
+
+## Steps to reproduce
+
+- Select `hard` difficulty
+- Play a couple of games
+
+The moves of the ai player are random.
+
+## Root cause analysis
 
 - The `getBestMove` function is broken, when the difficulty is medium, half of the time it returns a random move. When the it is hard or easy it returns random moves.
 
@@ -83,9 +135,9 @@
     }
 ```
 
-## How to fix
+## Solution implemented
 
-- Make the function choose random moves when difficulty is `easy`, half the time random moves when difficulty is `medium` and choose the best move when difficulty is `hard`.
+- Make the function choose random moves when difficulty is `easy`, half of the time random when difficulty is `medium` and choose the best move when difficulty is `hard`.
 
 ### 5
 
