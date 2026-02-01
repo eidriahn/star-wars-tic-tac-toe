@@ -225,3 +225,6 @@ View the app on mobile or with a restricted viewport in the browser.
 ## File(s) modified
 
 - apps/star-wars-tictactoe/src/routes/game/index.tsx
+
+**_ Note for reviewer _**
+Please tell me what the other 3 bugs are because I went mad trying to find them XD
