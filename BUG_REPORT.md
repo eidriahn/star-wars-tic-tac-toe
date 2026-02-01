@@ -22,3 +22,19 @@
   **Note** the function can be improved.
 
 - The fix was to add a check whether the `aiState` is the winner and if so, increase the score of the appropriate player.
+
+### 3
+
+- When there is a draw, the scores stay the same.
+
+- The bug is caused by passing the wrong key to the parameter lookup when determining the scores of the `gameState`
+
+```
+  if (newState.winner) {
+      gameState.scores[newState.winner] += 1;
+    }
+```
+
+**_TypeScript note_** Property 'draw' does not exist on type '{ X: number; O: number; draws: number; }'. Did you mean 'draws'
+
+- This can be fixed in two ways, by changing the key of the gameScores object from `draws` to `draw` or by changing the possible `winner` keys to `Player | 'draws'`, or what I think is best, making a ternary and piping the correct string to the scores. I think this is best because the types appropriately describe the entities, `gameState.scores.draws` is semantically correct as is `winner` as 'draw'.

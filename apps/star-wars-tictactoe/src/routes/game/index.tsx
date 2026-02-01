@@ -72,7 +72,9 @@ export default component$(() => {
     gameState.winner = newState.winner;
     gameState.isGameOver = newState.isGameOver;
     if (newState.winner) {
-      gameState.scores[newState.winner] += 1;
+      gameState.scores[
+        newState.winner === 'draw' ? 'draws' : newState.winner
+      ] += 1;
     }
 
     // Check if game is over after player move
@@ -99,7 +101,9 @@ export default component$(() => {
         gameState.isGameOver = aiState.isGameOver;
 
         if (aiState.winner) {
-          gameState.scores[aiState.winner] += 1;
+          gameState.scores[
+            aiState.winner === 'draw' ? 'draws' : aiState.winner
+          ] += 1;
         }
       }
     }
