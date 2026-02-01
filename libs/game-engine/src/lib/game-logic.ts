@@ -52,7 +52,7 @@ export class GameEngine {
 
     // Check for winner
     const winner = this.checkWinner(newBoard);
-    console.log(`🚀 => winner:`, winner);
+
     const isDraw = !winner && this.isBoardFull(newBoard);
     const isGameOver = !!winner || isDraw;
 

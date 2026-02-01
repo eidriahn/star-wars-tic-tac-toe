@@ -22,6 +22,7 @@ The application contains **10 intentionally placed bugs** that need to be identi
 ### Deliverables:
 
 1. **Bug Report Document** (`BUG_REPORT.md`):
+
    - List all 10 bugs (or the amount you found)
    - For each bug, include:
      - Bug title
@@ -32,6 +33,7 @@ The application contains **10 intentionally placed bugs** that need to be identi
      - File(s) modified
 
 2. **Fixed Codebase**:
+
    - All bugs should be properly fixed
    - Code should be clean and well-commented where necessary
    - Application should run without errors

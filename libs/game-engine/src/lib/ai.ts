@@ -5,7 +5,11 @@ export class AIPlayer {
   /**
    * Get the best move for the AI using minimax algorithm
    */
-  static getBestMove(board: Board, aiPlayer: Player, difficulty: 'easy' | 'medium' | 'hard' = 'hard'): number {
+  static getBestMove(
+    board: Board,
+    aiPlayer: Player,
+    difficulty: 'easy' | 'medium' | 'hard' = 'hard'
+  ): number {
     const availableMoves = GameEngine.getAvailableMoves(board);
 
     if (availableMoves.length === 0) {
@@ -13,6 +17,7 @@ export class AIPlayer {
     }
 
     if (difficulty === 'easy') {
+      return this.getRandomMove(availableMoves);
     }
 
     if (difficulty === 'medium') {
@@ -21,9 +26,6 @@ export class AIPlayer {
       }
     }
 
-    if (difficulty === 'hard') {
-      return this.getRandomMove(availableMoves);
-    }
     const opponent = aiPlayer === 'X' ? 'O' : 'X';
     let bestScore = -Infinity;
     let bestMove = availableMoves[0];
@@ -31,7 +33,15 @@ export class AIPlayer {
     for (const move of availableMoves) {
       const newBoard = [...board];
       newBoard[move] = aiPlayer;
-      const score = this.minimax(newBoard, 0, false, aiPlayer, opponent, -Infinity, Infinity);
+      const score = this.minimax(
+        newBoard,
+        0,
+        false,
+        aiPlayer,
+        opponent,
+        -Infinity,
+        Infinity
+      );
 
       if (score > bestScore) {
         bestScore = score;
@@ -76,7 +86,15 @@ export class AIPlayer {
       for (const move of availableMoves) {
         const newBoard = [...board];
         newBoard[move] = aiPlayer;
-        const score = this.minimax(newBoard, depth + 1, false, aiPlayer, humanPlayer, alpha, beta);
+        const score = this.minimax(
+          newBoard,
+          depth + 1,
+          false,
+          aiPlayer,
+          humanPlayer,
+          alpha,
+          beta
+        );
         maxScore = Math.max(score, maxScore);
         alpha = Math.max(alpha, score);
 
@@ -92,7 +110,15 @@ export class AIPlayer {
       for (const move of availableMoves) {
         const newBoard = [...board];
         newBoard[move] = humanPlayer;
-        const score = this.minimax(newBoard, depth + 1, true, aiPlayer, humanPlayer, alpha, beta);
+        const score = this.minimax(
+          newBoard,
+          depth + 1,
+          true,
+          aiPlayer,
+          humanPlayer,
+          alpha,
+          beta
+        );
         minScore = Math.min(score, minScore);
         beta = Math.min(beta, score);
 
@@ -123,7 +149,7 @@ export class AIPlayer {
     }
 
     // Otherwise, take a corner
-    const corners = [0, 2, 6, 8].filter(i => board[i] === null);
+    const corners = [0, 2, 6, 8].filter((i) => board[i] === null);
     if (corners.length > 0) {
       return corners[Math.floor(Math.random() * corners.length)];
     }
