@@ -86,3 +86,47 @@
 ## How to fix
 
 - Make the function choose random moves when difficulty is `easy`, half the time random moves when difficulty is `medium` and choose the best move when difficulty is `hard`.
+
+### 5
+
+## Bug title
+
+- Victory modal not shown when ai wins
+
+## Description
+
+- When the ai playes wins, the modal declaring their victory is not shown.
+
+## Steps to reproduce
+
+- Start a game
+- Let the AI win
+- No modal is shown when they win.
+
+## Root cause analysis
+
+- The issue stems from the `noSerialize` wrapper around `playerO` at [this](apps/star-wars-tictactoe/src/routes/game/index.tsx) component. Since the `noSerialize` function leads to the player being `undefined` on the client, the WinnerModal component doesn't execute properly.
+
+## Solution implemented
+
+- Removed the `noSerialize` wrapper function player0.
+
+## File(s) modified
+
+- apps/star-wars-tictactoe/src/routes/game/index.tsx
+
+### 6
+
+## Bug title
+
+- When trying to logout, the user is redirected to choose the difficulty instead
+
+## Description
+
+## Steps to reproduce
+
+## Root cause analysis
+
+## Solution implemented
+
+## File(s) modified

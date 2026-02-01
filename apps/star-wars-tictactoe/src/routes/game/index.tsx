@@ -1,11 +1,4 @@
-import {
-  component$,
-  useSignal,
-  useStore,
-  useTask$,
-  $,
-  noSerialize,
-} from '@builder.io/qwik';
+import { component$, useSignal, useStore, useTask$, $ } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import { AuthService } from '@star-wars-tictactoe/auth';
 import {
@@ -46,16 +39,14 @@ export default component$(() => {
     symbol: 'X',
     isAI: false,
   });
-  const playerO = useSignal<PlayerInfo>(
-    noSerialize({
-      id: 'ai',
-      name: 'Darth AI',
-      avatar:
-        'https://ui-avatars.com/api/?name=Darth+AI&background=ff0000&color=fff',
-      symbol: 'O',
-      isAI: true,
-    }) as PlayerInfo
-  );
+  const playerO = useSignal<PlayerInfo>({
+    id: 'ai',
+    name: 'Darth AI',
+    avatar:
+      'https://ui-avatars.com/api/?name=Darth+AI&background=ff0000&color=fff',
+    symbol: 'O',
+    isAI: true,
+  });
   const difficulty = gameData.value.difficulty;
   const isProcessing = useSignal(false);
 
@@ -128,7 +119,7 @@ export default component$(() => {
     const board = gameState.board;
     winningCells.value = GameEngine.getWinningCells(board.value || board);
   });
-
+  console.log('Game State=>', gameState);
   return (
     <div class="min-h-screen p-4">
       <div class="stars"></div>
